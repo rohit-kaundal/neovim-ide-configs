@@ -1,6 +1,20 @@
+vim.g.completeopt="menu,menuone,noselect,noinsert"
 local cmp = require'cmp'
+local lspkind = require('lspkind')
 
   cmp.setup({
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = 'symbol', -- show only symbol annotations
+      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+
+      -- The function below will be called before any actual modifications from lspkind
+      -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+      before = function (entry, vim_item)
+        return vim_item
+      end
+    })
+  },
     snippet = {
       -- REQUIRED - you must specify a snippet engine
       expand = function(args)
@@ -23,10 +37,12 @@ local cmp = require'cmp'
     },
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
+      -- { name = 'nvim_lua' },
       { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
+      { name = 'treesitter' }
+       -- { name = 'luasnip' }, -- For luasnip users.
       -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
+      --{ name = 'snippy' }, -- For snippy users.
     }, {
       { name = 'buffer' },
     })
@@ -57,9 +73,28 @@ local cmp = require'cmp'
     })
   })
 
+
   -- Setup lspconfig.
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
+  require('lspconfig')['tsserver'].setup {
+    capabilities = capabilities
+  }
+  require('lspconfig')['intelephense'].setup {
+    capabilities = capabilities
+  }
+  require('lspconfig')['pyright'].setup {
+    capabilities = capabilities
+  }
+  require('lspconfig')['rls'].setup {
+    capabilities = capabilities
+  }
+  require('lspconfig')['jsonls'].setup {
+    capabilities = capabilities
+  }
+  require('lspconfig')['html'].setup {
+    capabilities = capabilities
+  }
+  require('lspconfig')['cssls'].setup {
     capabilities = capabilities
   }

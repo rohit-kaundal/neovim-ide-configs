@@ -29,7 +29,7 @@ set colorcolumn=100
 call plug#begin('~/vim/plugged')
 
 " Auto close paranthesis
-Plug 'cohama/lexima.vim'
+Plug 'windwp/nvim-autopairs'
 
 " Airline status bar
 Plug 'vim-airline/vim-airline'
@@ -40,11 +40,15 @@ Plug 'nvim-telescope/telescope.nvim'
 " gruvbox font
 Plug 'gruvbox-community/gruvbox'
 
+" tokyonight colorscheme
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+
 " git wrapper
 Plug 'tpope/vim-fugitive'
 
 " Configuring language servers
 Plug 'neovim/nvim-lspconfig'
+Plug 'onsails/lspkind-nvim'
 
 " Install language servers with ease
 Plug 'kabouzeid/nvim-lspinstall'
@@ -58,37 +62,29 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
-Plug 'nvim-lua/completion-nvim'
 
 " For vsnip users.
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
-" For luasnip users.
- Plug 'L3MON4D3/LuaSnip'
- Plug 'saadparwaiz1/cmp_luasnip'
-
-" For ultisnips users.
- Plug 'SirVer/ultisnips'
- Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-
-" For snippy users.
- Plug 'dcampos/nvim-snippy'
- Plug 'dcampos/cmp-snippy'
+" Lua completion sources and plugins
+"Plug 'L3MON4D3/LuaSnip'
+"Plug 'nvim-lua/completion-nvim'
+"Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'rafamadriz/friendly-snippets'
 
 " Treesitter completion - dependent on nvim-completion
 Plug 'nvim-treesitter/nvim-treesitter' , {'do':':TSUpdate'}
-Plug 'nvim-treesitter/completion-treesitter'
-Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 " NERD-Tree windows manager
 Plug 'preservim/nerdtree'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'rafi/awesome-vim-colorschemes'
+
 call plug#end()
 
-colorscheme gruvbox
+colorscheme tokyonight
 highlight Normal guibg=none
 highlight ColorColumn ctermbg=0 guibg=grey
 
@@ -104,25 +100,14 @@ nnoremap K <cmd>lua vim.lsp.buf.hover()<cr>
 nnoremap gd <cmd>lua vim.lsp.buf.definition()<cr>
 nnoremap gD <cmd>lua vim.lsp.buf.declaration()<cr>
 nnoremap gr <cmd>lua vim.lsp.buf.references()<cr>
-nnoremap <c-k> <cmd> lua vim.lsp.buf.signature_help()<cr>
-nnoremap <leader>af <cmd> lua vim.lsp.buf.code_action()<cr>
+nnoremap <c-k> <cmd>lua vim.lsp.buf.signature_help()<cr>
+nnoremap <leader>af <cmd>lua vim.lsp.buf.code_action()<cr>
+"nnoremap <leader>af <cmd>lua vim.lsp.buf.code_action()<cr>
 
 lua require('rohitkaundal.telescope')
 lua require('rohitkaundal.lsp')
 lua require('rohitkaundal.lspsaga')
+lua require('rohitkaundal.cmp')
+lua require('rohitkaundal.autopairs')
 lua vim.opt.foldmethod = "expr"
 lua vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-" Auto completion
-imap <silent> <c-p> <Plug>(completion_trigger)
-let g:completion_chain_complete_list = {
-			\'default' : {
-			\	'default' : [
-			\		{'complete_items' : ['lsp', 'snippet']},
-			\		{'mode' : 'file'}
-			\	],
-            \},
-            \}
-
-autocmd BufEnter * lua require('completion').on_attach()
-
-lua require('rohitkaundal.cmp')
