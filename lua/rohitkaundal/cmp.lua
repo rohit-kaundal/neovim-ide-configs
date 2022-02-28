@@ -98,3 +98,6 @@ local lspkind = require('lspkind')
   require('lspconfig')['cssls'].setup {
     capabilities = capabilities
   }
+  require('lspconfig')['tailwindcss'].setup {
+    capabilities = capabilities
+  }

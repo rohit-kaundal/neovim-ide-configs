@@ -31,8 +31,12 @@ call plug#begin('~/vim/plugged')
 " Auto close paranthesis
 Plug 'windwp/nvim-autopairs'
 
+" Show tab coding line vscode style
+Plug 'lukas-reineke/indent-blankline.nvim'
+
 " Airline status bar
-Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline'
+Plug 'nvim-lualine/lualine.nvim'
 
 " Telescope popup browser
 Plug 'nvim-telescope/telescope.nvim'
@@ -105,9 +109,13 @@ nnoremap <leader>af <cmd>lua vim.lsp.buf.code_action()<cr>
 "nnoremap <leader>af <cmd>lua vim.lsp.buf.code_action()<cr>
 
 lua require('rohitkaundal.telescope')
-lua require('rohitkaundal.lsp')
+" lua require('rohitkaundal.lsp')
 lua require('rohitkaundal.lspsaga')
 lua require('rohitkaundal.cmp')
 lua require('rohitkaundal.autopairs')
+lua require('rohitkaundal.lualine')
+lua require('rohitkaundal.treesitter')
+lua require('rohitkaundal.indent-blankline')
+lua require('rohitkaundal.lsp')
 lua vim.opt.foldmethod = "expr"
 lua vim.opt.foldexpr = "nvim_treesitter#foldexpr()"

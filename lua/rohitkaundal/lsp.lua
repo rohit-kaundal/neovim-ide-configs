@@ -1,8 +1,14 @@
-local lsp_c = require('lspconfig')
-lsp_c.tsserver.setup{}
-lsp_c.intelephense.setup{}
-lsp_c.pyright.setup{}
-lsp_c.rls.setup{}
-lsp_c.html.setup{}
-lsp_c.jsonls.setup{}
-lsp_c.cssls.setup{}
+-- require'lspinstall'.setup() -- important
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = false,
+})
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+
