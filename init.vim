@@ -58,7 +58,7 @@ Plug 'onsails/lspkind-nvim'
 Plug 'kabouzeid/nvim-lspinstall'
 
 " provide popu definations and references
-Plug 'glepnir/lspsaga.nvim'
+" Plug 'glepnir/lspsaga.nvim'
 
 " Auto-completion plugins
 Plug 'hrsh7th/nvim-cmp'
